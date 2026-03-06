@@ -52,8 +52,9 @@ Hospitals worldwide face critical challenges with bed management:
 | **Long patient wait times** | Patients queue for hours while beds sit empty in other wards |
 | **Inefficient discharge flow** | Discharged beds stay marked as occupied, blocking new admissions |
 | **No priority-based allocation** | Critical patients wait the same as non-urgent cases |
+| **Reactive rather than proactive** | Cannot predict incoming patient surges or forecast bed demand |
 
-> **This system solves all of these problems** by providing a real-time, color-coded dashboard with full CRUD operations, a priority-based patient queue, and ward-level filtering — all accessible from any browser.
+> **This system solves all of these problems** by providing a real-time, color-coded dashboard, **AI-powered predictive analytics**, full CRUD operations, a priority-based patient queue, and ward-level filtering — all accessible from any browser.
 
 ---
 
@@ -106,6 +107,13 @@ Hospitals worldwide face critical challenges with bed management:
 
 ## ✨ Features
 
+### 🤖 AI-Powered Analytics
+- **Peak Hour Prediction** — Analyzes admission patterns to identify daily peak times
+- **Bed Demand Forecasting** — Predicts required bed count for upcoming days
+- **Emergency Surge Alerts** — Warns staff of sudden incoming patient loads based on historical data
+- **Nearby Hospital Allocations** — Suggests transferring patients to nearby facilities when capacity is reached
+- **Smart Bed Allocation** — Recommends best bed assignment based on priority and ward type
+
 ### 🔐 Authentication & Authorization
 - Secure login and registration with form validation
 - Role-based access control (Admin, Nurse, Billing, Viewer)
@@ -137,8 +145,9 @@ Hospitals worldwide face critical challenges with bed management:
 
 ### 📊 Dashboard Sections
 - **Ward View** — Main bed grid with filters and CRUD actions
+- **AI Analytics** — Includes demand forecasting, peak hour predictions, and surge alerts
 - **Stats** — Statistical overview *(coming soon)*
-- **Forecast** — AI-based occupancy predictions *(coming soon)*
+- **Forecast** — AI-based occupancy predictions
 - **Booking History** — Past admissions log *(coming soon)*
 - **Patients** — Patient directory *(coming soon)*
 - **Billing** — Invoice management *(coming soon)*
@@ -191,6 +200,12 @@ ai-bed-tracking-system/
 ├── src/
 │   ├── assets/                  # Images (hospital.png, react.svg)
 │   ├── components/
+│   │   ├── ai/                  # AI-powered prediction & analysis components
+│   │   │   ├── BedDemandForecast.jsx
+│   │   │   ├── BedRecommendation.jsx
+│   │   │   ├── EmergencySurgeAlert.jsx
+│   │   │   ├── NearbyHospitals.jsx
+│   │   │   └── PeakHourPrediction.jsx
 │   │   ├── beds/                # Bed management components
 │   │   │   ├── AddBedModal.jsx      # Modal to create a new bed
 │   │   │   ├── AssignBedModal.jsx   # Modal to assign patient to bed
@@ -306,8 +321,9 @@ The system uses mock authentication. You can sign in with any email and password
 - [x] Ward filtering and search
 - [x] Responsive design
 - [x] Protected routes
+- [x] AI-based occupancy forecasting and surge alerts
+- [x] Smart bed recommendations
 - [ ] Stats dashboard with charts
-- [ ] AI-based occupancy forecasting
 - [ ] Booking history & audit trail
 - [ ] Patient directory
 - [ ] Billing module
