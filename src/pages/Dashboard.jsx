@@ -5,6 +5,12 @@ import AddBedModal from '../components/beds/AddBedModal';
 import UpdateStatusModal from '../components/beds/UpdateStatusModal';
 import AssignBedModal from '../components/beds/AssignBedModal';
 import { WARDS, BED_STATUSES } from '../data/mockData';
+import { getAiMockData } from '../data/aiMockData';
+import EmergencySurgeAlert from '../components/ai/EmergencySurgeAlert';
+import PeakHourPrediction from '../components/ai/PeakHourPrediction';
+import BedDemandForecast from '../components/ai/BedDemandForecast';
+import NearbyHospitals from '../components/ai/NearbyHospitals';
+import BedRecommendation from '../components/ai/BedRecommendation';
 import {
   BedDouble, BarChart2, TrendingUp, BookOpen,
   Users, DollarSign, FileText,
@@ -49,11 +55,12 @@ function ComingSoon({ label }) {
 const CLOSED = { type: null, bed: null };
 
 export default function Dashboard() {
-  const { beds, stats, deleteBed } = useBeds();
+  const { beds, stats } = useBeds();
   const [section,    setSection]    = useState('ward');
   const [ward,       setWard]       = useState('All');
   const [searchQ,    setSearchQ]    = useState('');
   const [modal,      setModal]      = useState(CLOSED);
+  const [aiData]     = useState(getAiMockData);
 
   // Filter beds by ward + search
   const filtered = useMemo(() => {
@@ -80,6 +87,9 @@ export default function Dashboard() {
 
   return (
     <>
+      {/* ── Emergency Alert ────────────────────────────────── */}
+      <EmergencySurgeAlert data={aiData?.emergencyAlert} />
+
       {/* ── Section tab nav ────────────────────────────────── */}
       <div className="flex items-center gap-1 overflow-x-auto scrollbar-hide bg-white rounded-xl shadow-sm border border-gray-200 p-2 mb-4">
         {SECTION_TABS.map(({ id, label, icon: Icon }) => (
@@ -184,6 +194,13 @@ export default function Dashboard() {
             <BedGrid beds={filtered} onBedClick={handleBedClick} />
           </div>
 
+        </div>
+      ) : section === 'forecast' ? (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <PeakHourPrediction data={aiData?.peakHours} />
+          <BedDemandForecast data={aiData?.bedDemand} />
+          <BedRecommendation data={aiData?.bedRecommendation} />
+          <NearbyHospitals data={aiData?.nearbyHospitals} />
         </div>
       ) : (
         <div className="bg-white rounded-xl border border-gray-200 shadow-sm">
