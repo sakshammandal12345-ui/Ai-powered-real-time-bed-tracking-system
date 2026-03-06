@@ -320,13 +320,23 @@ The system uses mock authentication. You can sign in with any email and password
 
 ## 🤝 Contributing
 
-Contributions are welcome! Here's how:
+This project is a team effort! Here's how our team is organized:
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+**Team Members:**
+1. **Alex Adhikari** – AI & research (bed occupancy prediction, analytics)  
+2. **Saksham Mandal** – Frontend (React dashboard, components, context)  
+3. **Nikesh Rajbanshi** – Backend (API development, database integration)  
+4. **Reena Yadav** – UI/UX Design (layouts, mockups, responsive design)
+
+**How to contribute:**
+
+1. Fork the repository  
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)  
+3. Make your changes and commit (`git commit -m 'Add amazing feature'`)  
+4. Push your branch (`git push origin feature/amazing-feature`)  
+5. Open a Pull Request for review  
+
+> Everyone should work in their feature branch. Merges to `main` should only happen after review to keep the project stable.
 
 ---
 
@@ -338,4 +348,5 @@ This project is open source and available under the [MIT License](LICENSE).
 
 <p align="center">
   Made with ❤️ for smarter healthcare
+     By Team : Berserk
 </p>
