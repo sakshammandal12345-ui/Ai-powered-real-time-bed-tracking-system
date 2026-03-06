@@ -176,6 +176,11 @@ Hospitals worldwide face critical challenges with bed management:
 
 ![Dashboard](./screenshots/dashboard.png)
 
+### Dashboard — AI Forecast View
+> AI analytics dashboard showing predicted peak hours, bed demand forecasting, smart bed allocations, and nearby hospital availability.
+
+![Forecast Dashboard](./screenshots/forecast.png)
+
 ---
 
 ## 🛠️ Tech Stack
