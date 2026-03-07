@@ -11,6 +11,7 @@ import PeakHourPrediction from '../components/ai/PeakHourPrediction';
 import BedDemandForecast from '../components/ai/BedDemandForecast';
 import NearbyHospitals from '../components/ai/NearbyHospitals';
 import BedRecommendation from '../components/ai/BedRecommendation';
+import StatsDashboard from './StatsDashboard';
 import {
   BedDouble, BarChart2, TrendingUp, BookOpen,
   Users, DollarSign, FileText,
@@ -202,6 +203,8 @@ export default function Dashboard() {
           <BedRecommendation data={aiData?.bedRecommendation} />
           <NearbyHospitals data={aiData?.nearbyHospitals} />
         </div>
+      ) : section === 'stats' ? (
+        <StatsDashboard />
       ) : (
         <div className="bg-white rounded-xl border border-gray-200 shadow-sm">
           <ComingSoon label={SECTION_TABS.find(t => t.id === section)?.label} />
