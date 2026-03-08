@@ -28,8 +28,8 @@ export default function Login() {
       setLoading(true);
       await login(email.trim(), password);
       navigate('/dashboard');
-    } catch {
-      setErrors({ form: 'Invalid credentials. Please try again.' });
+    } catch (err) {
+      setErrors({ form: err.message || 'Invalid credentials. Please try again.' });
     } finally {
       setLoading(false);
     }
