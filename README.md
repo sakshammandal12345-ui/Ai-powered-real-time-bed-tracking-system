@@ -126,6 +126,12 @@ Hospitals worldwide face critical challenges with bed management:
 - **Update** — Change bed status (Available → Occupied → Discharging → Untidy → Available)
 - **Delete** — Remove beds from the system
 
+### 🧑‍⚕️ Patient Management (Full CRUD)
+- **Create** — Add new patient records with details like age, blood group, and clinical notes
+- **Read** — View patient directory in a responsive desktop table or mobile cards
+- **Update** — Edit existing patient information seamlessly
+- **Delete** — Remove patients from the system
+
 ### 🎨 8 Color-Coded Bed Statuses
 | Status | Color | Meaning |
 |---|---|---|
@@ -149,7 +155,7 @@ Hospitals worldwide face critical challenges with bed management:
 - **Stats** — Statistical overview *(coming soon)*
 - **Forecast** — AI-based occupancy predictions
 - **Booking History** — Past admissions log *(coming soon)*
-- **Patients** — Patient directory *(coming soon)*
+- **Patients** — Full CRUD patient directory with search and filtering
 - **Billing** — Invoice management *(coming soon)*
 - **Reports** — Analytics reports *(coming soon)*
 
@@ -185,6 +191,12 @@ Hospitals worldwide face critical challenges with bed management:
 > Statistical overview displaying real-time hospital capacity, bed occupancy trends, department distributions, and recent activity.
 
 ![Stats Dashboard](./screenshots/stats.png)
+
+### Dashboard — Patients View
+> Complete CRUD interface for managing patient records, searching, and filtering hospital admissions.
+
+![Patients Dashboard](./screenshots/patients.png)
+
 ---
 
 ## 🛠️ Tech Stack
@@ -333,8 +345,8 @@ The system uses mock authentication. You can sign in with any email and password
 - [x] AI-based occupancy forecasting and surge alerts
 - [x] Smart bed recommendations
 - [x] Stats dashboard with charts
+- [x] Patient directory (Full CRUD)
 - [ ] Booking history & audit trail
-- [ ] Patient directory
 - [ ] Billing module
 - [ ] Reports & analytics
 - [ ] Backend API integration
