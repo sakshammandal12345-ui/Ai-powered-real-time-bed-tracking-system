@@ -181,6 +181,10 @@ Hospitals worldwide face critical challenges with bed management:
 
 ![Forecast Dashboard](./screenshots/forecast.png)
 
+### Dashboard — Stats View
+> Statistical overview displaying real-time hospital capacity, bed occupancy trends, department distributions, and recent activity.
+
+![Stats Dashboard](./screenshots/stats.png)
 ---
 
 ## 🛠️ Tech Stack
@@ -328,7 +332,7 @@ The system uses mock authentication. You can sign in with any email and password
 - [x] Protected routes
 - [x] AI-based occupancy forecasting and surge alerts
 - [x] Smart bed recommendations
-- [ ] Stats dashboard with charts
+- [x] Stats dashboard with charts
 - [ ] Booking history & audit trail
 - [ ] Patient directory
 - [ ] Billing module
