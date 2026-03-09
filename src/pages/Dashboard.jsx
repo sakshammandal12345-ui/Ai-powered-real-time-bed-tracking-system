@@ -13,6 +13,7 @@ import NearbyHospitals from '../components/ai/NearbyHospitals';
 import BedRecommendation from '../components/ai/BedRecommendation';
 import StatsDashboard from './StatsDashboard';
 import PatientsDashboard from '../components/patients/PatientsDashboard';
+import Billing from './dashboard/Billing';
 import {
   BedDouble, BarChart2, TrendingUp, BookOpen,
   Users, DollarSign, FileText,
@@ -209,6 +210,8 @@ export default function Dashboard() {
         <StatsDashboard />
       ) : section === 'patients' ? (
         <PatientsDashboard />
+      ) : section === 'billing' ? (
+        <Billing />
       ) : (
         <div className="bg-white rounded-xl border border-gray-200 shadow-sm">
           <ComingSoon label={SECTION_TABS.find(t => t.id === section)?.label} />
