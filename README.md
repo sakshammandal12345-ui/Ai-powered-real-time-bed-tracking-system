@@ -156,7 +156,7 @@ Hospitals worldwide face critical challenges with bed management:
 - **Forecast** — AI-based occupancy predictions
 - **Booking History** — Past admissions log *(coming soon)*
 - **Patients** — Full CRUD patient directory with search and filtering
-- **Billing** — Invoice management *(coming soon)*
+- **Billing** — Invoice management & billing history
 - **Reports** — Analytics reports *(coming soon)*
 
 ### 🔍 Search & Filter
@@ -196,6 +196,11 @@ Hospitals worldwide face critical challenges with bed management:
 > Complete CRUD interface for managing patient records, searching, and filtering hospital admissions.
 
 ![Patients Dashboard](./screenshots/patients.png)
+
+### Dashboard — Billing View
+> Manage billing history, track expenses, and view detailed invoices.
+
+![Billing Dashboard](./screenshots/billing.png)
 
 ---
 
@@ -347,7 +352,7 @@ The system uses mock authentication. You can sign in with any email and password
 - [x] Stats dashboard with charts
 - [x] Patient directory (Full CRUD)
 - [ ] Booking history & audit trail
-- [ ] Billing module
+- [x] Billing module
 - [ ] Reports & analytics
 - [ ] Backend API integration
 - [ ] Real-time updates via WebSocket
