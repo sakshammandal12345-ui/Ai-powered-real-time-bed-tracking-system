@@ -152,7 +152,7 @@ Hospitals worldwide face critical challenges with bed management:
 ### 📊 Dashboard Sections
 - **Ward View** — Main bed grid with filters and CRUD actions
 - **AI Analytics** — Includes demand forecasting, peak hour predictions, and surge alerts
-- **Stats** — Statistical overview *(coming soon)*
+- **Stats** — Statistical overview 
 - **Forecast** — AI-based occupancy predictions
 - **Booking History** — Past admissions log *(coming soon)*
 - **Patients** — Full CRUD patient directory with search and filtering
