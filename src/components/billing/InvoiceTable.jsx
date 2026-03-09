@@ -1,7 +1,7 @@
 import React from 'react';
-import { Eye, DownloadCloud } from 'lucide-react';
+import { Eye, DownloadCloud, Edit, Trash2 } from 'lucide-react';
 
-export default function InvoiceTable({ invoices, onView }) {
+export default function InvoiceTable({ invoices, onView, onEdit, onDelete }) {
   if (!invoices || invoices.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-16 text-gray-400 bg-white rounded-xl border border-gray-200">
@@ -24,7 +24,7 @@ export default function InvoiceTable({ invoices, onView }) {
             <th className="px-6 py-4 whitespace-nowrap hidden md:table-cell">Description</th>
             <th className="px-6 py-4 whitespace-nowrap text-right">Amount</th>
             <th className="px-6 py-4 whitespace-nowrap text-center">Status</th>
-            <th className="px-6 py-4 rounded-tr-xl whitespace-nowrap text-center">Action</th>
+            <th className="px-6 py-4 rounded-tr-xl whitespace-nowrap text-center">Actions</th>
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-100 text-sm">
@@ -52,12 +52,29 @@ export default function InvoiceTable({ invoices, onView }) {
                 </span>
               </td>
               <td className="px-6 py-4 text-center whitespace-nowrap">
-                <button
-                  onClick={() => onView(inv)}
-                  className="flex items-center justify-center gap-1.5 mx-auto bg-white border border-gray-200 rounded-lg px-3 py-1.5 text-xs font-semibold text-blue-600 hover:bg-blue-50 hover:border-blue-200 transition-all opacity-0 group-hover:opacity-100 focus:opacity-100"
-                >
-                  <Eye size={14} /> View
-                </button>
+                <div className="flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <button
+                    onClick={() => onView(inv)}
+                    className="p-1.5 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                    title="View details"
+                  >
+                    <Eye size={16} />
+                  </button>
+                  <button
+                    onClick={() => onEdit(inv)}
+                    className="p-1.5 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+                    title="Edit invoice"
+                  >
+                    <Edit size={16} />
+                  </button>
+                  <button
+                    onClick={() => onDelete(inv.id)}
+                    className="p-1.5 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                    title="Delete invoice"
+                  >
+                    <Trash2 size={16} />
+                  </button>
+                </div>
               </td>
             </tr>
           ))}
