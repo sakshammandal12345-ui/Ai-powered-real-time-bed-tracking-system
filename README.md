@@ -126,6 +126,12 @@ Hospitals worldwide face critical challenges with bed management:
 - **Update** — Change bed status (Available → Occupied → Discharging → Untidy → Available)
 - **Delete** — Remove beds from the system
 
+### 🧑‍⚕️ Patient Management (Full CRUD)
+- **Create** — Add new patient records with details like age, blood group, and clinical notes
+- **Read** — View patient directory in a responsive desktop table or mobile cards
+- **Update** — Edit existing patient information seamlessly
+- **Delete** — Remove patients from the system
+
 ### 🎨 8 Color-Coded Bed Statuses
 | Status | Color | Meaning |
 |---|---|---|
@@ -146,11 +152,11 @@ Hospitals worldwide face critical challenges with bed management:
 ### 📊 Dashboard Sections
 - **Ward View** — Main bed grid with filters and CRUD actions
 - **AI Analytics** — Includes demand forecasting, peak hour predictions, and surge alerts
-- **Stats** — Statistical overview *(coming soon)*
+- **Stats** — Statistical overview 
 - **Forecast** — AI-based occupancy predictions
 - **Booking History** — Past admissions log *(coming soon)*
-- **Patients** — Patient directory *(coming soon)*
-- **Billing** — Invoice management *(coming soon)*
+- **Patients** — Full CRUD patient directory with search and filtering
+- **Billing** — Invoice management & billing history
 - **Reports** — Analytics reports *(coming soon)*
 
 ### 🔍 Search & Filter
@@ -180,6 +186,21 @@ Hospitals worldwide face critical challenges with bed management:
 > AI analytics dashboard showing predicted peak hours, bed demand forecasting, smart bed allocations, and nearby hospital availability.
 
 ![Forecast Dashboard](./screenshots/forecast.png)
+
+### Dashboard — Stats View
+> Statistical overview displaying real-time hospital capacity, bed occupancy trends, department distributions, and recent activity.
+
+![Stats Dashboard](./screenshots/stats.png)
+
+### Dashboard — Patients View
+> Complete CRUD interface for managing patient records, searching, and filtering hospital admissions.
+
+![Patients Dashboard](./screenshots/patients.png)
+
+### Dashboard — Billing View
+> Manage billing history, track expenses, and view detailed invoices.
+
+![Billing Dashboard](./screenshots/billing.png)
 
 ---
 
@@ -328,10 +349,10 @@ The system uses mock authentication. You can sign in with any email and password
 - [x] Protected routes
 - [x] AI-based occupancy forecasting and surge alerts
 - [x] Smart bed recommendations
-- [ ] Stats dashboard with charts
+- [x] Stats dashboard with charts
+- [x] Patient directory (Full CRUD)
 - [ ] Booking history & audit trail
-- [ ] Patient directory
-- [ ] Billing module
+- [x] Billing module
 - [ ] Reports & analytics
 - [ ] Backend API integration
 - [ ] Real-time updates via WebSocket

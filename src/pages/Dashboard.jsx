@@ -13,6 +13,10 @@ import PeakHourPrediction from '../components/ai/PeakHourPrediction';
 import BedDemandForecast from '../components/ai/BedDemandForecast';
 import NearbyHospitals from '../components/ai/NearbyHospitals';
 import BedRecommendation from '../components/ai/BedRecommendation';
+import StatsDashboard from './StatsDashboard';
+import PatientsDashboard from '../components/patients/PatientsDashboard';
+import Billing from './dashboard/Billing';
+import BookingHistory from './dashboard/BookingHistory';
 import {
   BedDouble, BarChart2, TrendingUp, BookOpen,
   Users, DollarSign, FileText,
@@ -196,6 +200,7 @@ export default function Dashboard() {
 
       {/* ── Section tab nav ────────────────────────────────── */}
       <div className="flex items-center gap-1 overflow-x-auto scrollbar-hide bg-white rounded-xl shadow-sm border border-gray-200 p-2 mb-4">
+        {/* eslint-disable-next-line no-unused-vars */}
         {SECTION_TABS.map(({ id, label, icon: Icon }) => (
           <button
             key={id}

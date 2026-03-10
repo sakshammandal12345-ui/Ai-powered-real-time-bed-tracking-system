@@ -21,9 +21,18 @@ export default function Register() {
 
   function validate() {
     const e = {};
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!form.name.trim())     e.name     = 'Name required';
-    if (!form.email.trim())    e.email    = 'Email required';
-    if (!form.password.trim()) e.password = 'Password required';
+    if (!form.email.trim()) {
+      e.email    = 'Email required';
+    } else if (!emailRegex.test(form.email)) {
+      e.email    = 'Invalid email format';
+    }
+    if (!form.password.trim()) {
+      e.password = 'Password required';
+    } else if (form.password.length < 6) {
+      e.password = 'Password must be at least 6 characters';
+    }
     return e;
   }
 
@@ -35,9 +44,9 @@ export default function Register() {
     try {
       setLoading(true);
       await register(form.name.trim(), form.email.trim(), form.role || 'Admin', form.password);
-      navigate('/dashboard');
-    } catch {
-      setErrors({ form: 'Registration failed. Please try again.' });
+      navigate('/login');
+    } catch (err) {
+      setErrors({ form: err.message || 'Registration failed. Please try again.' });
     } finally {
       setLoading(false);
     }

@@ -3,6 +3,7 @@ import { INITIAL_BEDS, INITIAL_QUEUE } from '../data/mockData';
 
 const BedContext = createContext(null);
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useBeds() {
   return useContext(BedContext);
 }

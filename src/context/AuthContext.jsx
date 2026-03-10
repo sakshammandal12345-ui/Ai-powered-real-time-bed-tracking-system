@@ -2,29 +2,23 @@ import { createContext, useContext, useState, useEffect } from 'react';
 
 const AuthContext = createContext(null);
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useAuth() {
   return useContext(AuthContext);
 }
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [role, setRole] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     try {
-      const storedUser = localStorage.getItem('bt_user');
-      const storedRole = localStorage.getItem('bt_role');
-      const storedToken = localStorage.getItem('bt_token');
-
-      if (storedUser && storedRole && storedToken) {
-        setUser(JSON.parse(storedUser));
-        setRole(storedRole);
+      const currentUser = localStorage.getItem('currentUser');
+      if (currentUser) {
+        setUser(JSON.parse(currentUser));
       }
     } catch {
-      localStorage.removeItem('bt_user');
-      localStorage.removeItem('bt_role');
-      localStorage.removeItem('bt_token');
+      localStorage.removeItem('currentUser');
     } finally {
       setLoading(false);
     }
@@ -33,50 +27,45 @@ export function AuthProvider({ children }) {
   function login(email, password) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        if (email && password) {
-          let assignedRole = 'Admin';
-          if (email.includes('nurse')) assignedRole = 'Nurse';
-          else if (email.includes('billing')) assignedRole = 'Billing';
-          else if (email.includes('viewer')) assignedRole = 'Viewer';
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const validUser = users.find(
+          u => u.email === email && u.password === password
+        );
 
-          const mockUser = { id: '1', name: 'Dr. Smith', email };
-          setUser(mockUser);
-          setRole(assignedRole);
-          localStorage.setItem('bt_user', JSON.stringify(mockUser));
-          localStorage.setItem('bt_role', assignedRole);
-          localStorage.setItem('bt_token', 'mock-jwt-token-123');
-          resolve(mockUser);
+        if (validUser) {
+          localStorage.setItem('currentUser', JSON.stringify(validUser));
+          setUser(validUser);
+          resolve(validUser);
         } else {
-          reject(new Error('Invalid credentials'));
+          reject(new Error('Invalid email or password'));
         }
-      }, 600);
+      }, 300);
     });
   }
 
   function register(name, email, selectedRole, password) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        if (!name || !email || !password) {
-          reject(new Error('Missing fields'));
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const emailExists = users.some(u => u.email === email);
+
+        if (emailExists) {
+          reject(new Error('Email already registered'));
           return;
         }
-        const mockUser = { id: Date.now().toString(), name, email };
-        setUser(mockUser);
-        setRole(selectedRole);
-        localStorage.setItem('bt_user', JSON.stringify(mockUser));
-        localStorage.setItem('bt_role', selectedRole);
-        localStorage.setItem('bt_token', 'mock-jwt-token-123');
-        resolve(mockUser);
-      }, 600);
+
+        const newUser = { email, password, name, role: selectedRole };
+        users.push(newUser);
+        localStorage.setItem('users', JSON.stringify(users));
+        
+        resolve(newUser);
+      }, 300);
     });
   }
 
   function logout() {
     setUser(null);
-    setRole(null);
-    localStorage.removeItem('bt_user');
-    localStorage.removeItem('bt_role');
-    localStorage.removeItem('bt_token');
+    localStorage.removeItem('currentUser');
   }
 
   if (loading) {
@@ -91,7 +80,7 @@ export function AuthProvider({ children }) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, role, login, register, logout, loading }}>
+    <AuthContext.Provider value={{ user, role: user?.role || null, login, register, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );

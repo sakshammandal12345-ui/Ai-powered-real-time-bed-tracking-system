@@ -1,12 +1,3 @@
-// This replaces the forecast section inside Dashboard.jsx
-// Find this in Dashboard.jsx:
-//   ) : section === 'forecast' ? (
-//     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-//       <PeakHourPrediction data={aiData?.peakHours} />
-//       ...
-//     </div>
-// Replace the entire forecast section with this:
-
 import React, { useState, useEffect } from 'react';
 import { Brain, Zap, Activity, TrendingUp, AlertTriangle, Clock, RefreshCw } from 'lucide-react';
 import PeakHourPrediction from "./PeakHourPrediction";
