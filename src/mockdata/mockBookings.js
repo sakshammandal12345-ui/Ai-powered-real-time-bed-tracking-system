@@ -15,7 +15,7 @@ export const mockBookings = [
   {
     bookingId: "BK-1002",
     patientName: "Jane Smith",
-    hospitalName: "Global Health Institute",
+    hospitalName: "City Care Hospital",
     bedType: "General",
     bookingDate: "2024-03-04",
     admissionDate: "2024-03-04",
@@ -41,7 +41,7 @@ export const mockBookings = [
   {
     bookingId: "BK-1004",
     patientName: "Ram Yadav",
-    hospitalName: "Everest Medical Center",
+    hospitalName: "City Care Hospital",
     bedType: "ICU",
     bookingDate: "2024-02-28",
     admissionDate: "2024-02-28",
@@ -67,7 +67,7 @@ export const mockBookings = [
   {
     bookingId: "BK-1006",
     patientName: "Sara Khan",
-    hospitalName: "Medicare Hospital",
+    hospitalName: "City Care Hospital",
     bedType: "General",
     bookingDate: "2024-02-25",
     admissionDate: "2024-02-25",
@@ -80,7 +80,7 @@ export const mockBookings = [
   {
     bookingId: "BK-1007",
     patientName: "Tom Hardy",
-    hospitalName: "Global Health Institute",
+    hospitalName: "City Care Hospital",
     bedType: "ICU",
     bookingDate: "2024-03-06",
     admissionDate: "2024-03-06",
