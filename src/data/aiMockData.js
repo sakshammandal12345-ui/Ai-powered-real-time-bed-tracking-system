@@ -25,7 +25,7 @@ export const initialAiData = {
     ]
   },
   emergencyAlert: {
-    alert: true,
+    alert: false,
     reason: "Admission rate exceeds normal threshold",
     riskLevel: "High",
     suggestion: "Prepare additional beds"

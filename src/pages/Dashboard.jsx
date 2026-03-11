@@ -304,8 +304,16 @@ export default function Dashboard() {
           </div>
 
         </div>
-      ) : section === 'forecast' ? (
+         ) : section === 'forecast' ? (
         <ForecastSection aiData={aiData} aiLoading={aiLoading} />
+      ) : section === 'stats' ? (
+        <StatsDashboard />
+      ) : section === 'patients' ? (
+        <PatientsDashboard />
+      ) : section === 'billing' ? (
+        <Billing />
+      ) : section === 'history' ? (
+        <BookingHistory />
       ) : (
         <div className="bg-white rounded-xl border border-gray-200 shadow-sm">
           <ComingSoon label={SECTION_TABS.find(t => t.id === section)?.label} />
