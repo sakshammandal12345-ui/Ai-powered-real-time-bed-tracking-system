@@ -5,6 +5,7 @@ import BookingTable from '../../components/bookings/BookingTable';
 import BookingFilters from '../../components/bookings/BookingFilters';
 import BookingCardMobile from '../../components/bookings/BookingCardMobile';
 import BookingDetailsModal from '../../components/bookings/BookingDetailsModal';
+import BookingFormModal from '../../components/bookings/BookingFormModal';
 
 export default function BookingHistory() {
   const [loading, setLoading] = useState(true);
@@ -14,6 +15,8 @@ export default function BookingHistory() {
   const [paymentFilter, setPaymentFilter] = useState('All');
   const [dateFilter, setDateFilter] = useState('');
   const [selectedBooking, setSelectedBooking] = useState(null);
+  const [isFormModalOpen, setIsFormModalOpen] = useState(false);
+  const [editingBooking, setEditingBooking] = useState(null);
   const [bookings, setBookings] = useState(mockBookings);
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 5;
@@ -78,16 +81,43 @@ export default function BookingHistory() {
     }
   };
 
+  const handleDeleteBooking = (id) => {
+    if (window.confirm('Are you sure you want to delete this booking record? This action cannot be undone.')) {
+      setBookings(prev => prev.filter(b => b.bookingId !== id));
+    }
+  };
+
+  const handleOpenForm = (booking = null) => {
+    setEditingBooking(booking);
+    setIsFormModalOpen(true);
+  };
+
+  const handleSaveBooking = (formData) => {
+    if (editingBooking) {
+      // Edit
+      setBookings(prev => prev.map(b => b.bookingId === editingBooking.bookingId ? formData : b));
+    } else {
+      // Add
+      const newBooking = {
+        ...formData,
+        bookingId: `BK-${Math.floor(1000 + Math.random() * 9000).toString()}`
+      };
+      setBookings(prev => [newBooking, ...prev]);
+    }
+    setIsFormModalOpen(false);
+    setEditingBooking(null);
+  };
+
   const handleDownloadReceipt = (id) => {
     alert(`Downloading receipt for booking ${id}...`);
   };
 
   // Stats
   const stats = {
-    total: mockBookings.length,
-    active: mockBookings.filter(b => b.status === 'Active').length,
-    completed: mockBookings.filter(b => b.status === 'Completed').length,
-    cancelled: mockBookings.filter(b => b.status === 'Cancelled').length
+    total: bookings.length,
+    active: bookings.filter(b => b.status === 'Active').length,
+    completed: bookings.filter(b => b.status === 'Completed').length,
+    cancelled: bookings.filter(b => b.status === 'Cancelled').length
   };
 
   if (loading) {
@@ -115,9 +145,18 @@ export default function BookingHistory() {
             <h2 className="text-2xl font-black text-gray-900">Booking History</h2>
             <p className="text-sm text-gray-500 font-medium">Manage and track all previous bed reservations.</p>
           </div>
-          <div className="flex items-center gap-2 bg-blue-50 px-4 py-2 rounded-xl">
-            <BarChart3 size={18} className="text-blue-600" />
-            <span className="text-sm font-bold text-blue-700">Analytics Active</span>
+          <div className="flex flex-wrap items-center gap-3">
+            <button 
+              onClick={() => handleOpenForm()}
+              className="px-5 py-2.5 bg-blue-600 text-white rounded-xl text-sm font-bold shadow-lg shadow-blue-200 hover:bg-blue-700 transition-all active:scale-95 flex items-center gap-2"
+            >
+              <BookOpen size={18} />
+              Add New Booking
+            </button>
+            <div className="flex items-center gap-2 bg-blue-50 px-4 py-2.5 rounded-xl">
+              <BarChart3 size={18} className="text-blue-600" />
+              <span className="text-sm font-bold text-blue-700">Analytics Active</span>
+            </div>
           </div>
         </div>
       </div>
@@ -162,8 +201,10 @@ export default function BookingHistory() {
               <BookingTable 
                 bookings={pagedBookings} 
                 onViewDetails={setSelectedBooking}
+                onEdit={handleOpenForm}
                 onCancel={handleCancelBooking}
                 onDownloadReceipt={handleDownloadReceipt}
+                onDelete={handleDeleteBooking}
                 sortConfig={sortConfig}
                 onSort={handleSort}
               />
@@ -176,8 +217,10 @@ export default function BookingHistory() {
                   key={b.bookingId} 
                   booking={b} 
                   onViewDetails={setSelectedBooking}
+                  onEdit={handleOpenForm}
                   onCancel={handleCancelBooking}
                   onDownloadReceipt={handleDownloadReceipt}
+                  onDelete={handleDeleteBooking}
                 />
               ))}
             </div>
@@ -245,6 +288,19 @@ export default function BookingHistory() {
         onClose={() => setSelectedBooking(null)}
         booking={selectedBooking}
       />
+
+      {isFormModalOpen && (
+        <BookingFormModal 
+          open={isFormModalOpen}
+          onClose={() => {
+            setIsFormModalOpen(false);
+            setEditingBooking(null);
+          }}
+          onSave={handleSaveBooking}
+          booking={editingBooking}
+          key={editingBooking?.bookingId || 'new-booking'}
+        />
+      )}
     </div>
   );
 }
