@@ -18,7 +18,7 @@ export default function AILiveBanner({ aiData }) {
   const occupied = stats.occupied;
   const total = stats.total;
   const available = total - occupied;
-  const isCritical = aiData?.emergencyAlert?.alert;
+  const isCritical = false;
   const peakHours = aiData?.peakHours?.predictedPeakHours ?? [];
   const isCurrentlyPeak = peakHours.some(p => parseInt(p) === hour);
 
