@@ -7,7 +7,6 @@ import UpdateStatusModal from '../components/beds/UpdateStatusModal';
 import AssignBedModal from '../components/beds/AssignBedModal';
 import { WARDS, BED_STATUSES } from '../data/mockData';
 import { getAiMockData } from '../data/aiMockData';
-import EmergencySurgeAlert from '../components/ai/EmergencySurgeAlert';
 import PeakHourPrediction from '../components/ai/PeakHourPrediction';
 import BedDemandForecast from '../components/ai/BedDemandForecast';
 import NearbyHospitals from '../components/ai/NearbyHospitals';
@@ -173,7 +172,6 @@ export default function Dashboard() {
     <>
       {/* ── Emergency Alert ────────────────────────────────── */}
       <AILiveBanner aiData={aiData} />
-      <EmergencySurgeAlert data={aiData?.emergencyAlert} />
 
       {/* ── Section tab nav ────────────────────────────────── */}
       <div className="flex items-center gap-1 overflow-x-auto scrollbar-hide bg-white rounded-xl shadow-sm border border-gray-200 p-2 mb-4">
