@@ -4,15 +4,19 @@ import PeakHourPrediction from "./PeakHourPrediction";
 import BedDemandForecast from "./BedDemandForecast";
 import BedRecommendation from "./BedRecommendation";
 import NearbyHospitals from "./NearbyHospitals";
+import { useBeds } from '../../context/BedContext';
 
 // ── Copy this JSX block and paste it as the forecast section ──
 export function ForecastSection({ aiData, aiLoading }) {
+  const { stats } = useBeds();
   const [lastUpdated, setLastUpdated] = useState(new Date());
   const [scanLine, setScanLine] = useState(0);
+  const [prevAiData, setPrevAiData] = useState(aiData);
 
-  useEffect(() => {
-    if (aiData) setLastUpdated(new Date());
-  }, [aiData]);
+  if (aiData !== prevAiData) {
+    setPrevAiData(aiData);
+    setLastUpdated(new Date());
+  }
 
   useEffect(() => {
     const t = setInterval(() => setScanLine(s => (s + 1) % 100), 30);
@@ -111,7 +115,7 @@ export function ForecastSection({ aiData, aiLoading }) {
           style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
           {[
             { label: 'Peak Hours Today', value: aiData?.peakHours?.predictedPeakHours?.join(', ') || '--', color: '#f59e0b' },
-            { label: 'Current Load', value: `${aiData?.peakHours?.expectedPatientLoad ?? '--'} beds`, color: '#60a5fa' },
+            { label: 'Current Load', value: `${stats.occupied} beds`, color: '#60a5fa' },
             { label: 'Next 6h ICU Need', value: `${aiData?.bedDemand?.next6Hours?.icu ?? '--'} beds`, color: '#f87171' },
             { label: 'Confidence', value: aiData?.peakHours?.confidence ?? '96%', color: '#34d399' },
           ].map((stat, i) => (

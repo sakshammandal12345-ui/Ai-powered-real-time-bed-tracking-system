@@ -26,12 +26,24 @@ export function BedProvider({ children }) {
   }
 
   function updateBedStatus(bedId, newStatus, patientName = null) {
+    const bed = beds.find(b => b.id === bedId);
+    
+    // Auto-queue if changing status manually to discharging or transfer
+    if (bed && bed.status === 'occupied') {
+        if (newStatus === 'discharging') {
+            addToQueue({ patientName: bed.patientName, requiredWard: bed.ward, tab: 'discharge', priority: 'Medium' });
+        } else if (newStatus === 'transfer') { 
+            addToQueue({ patientName: bed.patientName, requiredWard: bed.ward, tab: 'transfer', priority: 'High' });
+            newStatus = 'untidy'; // Map transfer status implicitly to untidy
+        }
+    }
+
     setBeds(prev => prev.map(b =>
       b.id === bedId
         ? {
             ...b,
             status:      newStatus,
-            patientName: patientName ?? (newStatus === 'available' ? null : b.patientName),
+            patientName: patientName ?? (newStatus === 'available' || newStatus === 'untidy' ? null : b.patientName),
             timestamp:   newStatus === 'occupied' ? new Date().toISOString() : (newStatus === 'available' ? null : b.timestamp),
           }
         : b
@@ -67,14 +79,44 @@ export function BedProvider({ children }) {
     ));
   }
 
+  function dischargePatientToQueue(bedId) {
+    const bed = beds.find(b => b.id === bedId);
+    if (!bed || !bed.patientName) return;
+
+    setBeds(prev => prev.map(b =>
+      b.id === bedId
+        ? { ...b, status: 'discharging', timestamp: new Date().toISOString() }
+        : b
+    ));
+    addToQueue({ patientName: bed.patientName, requiredWard: bed.ward, tab: 'discharge', priority: 'Medium' });
+  }
+
+  function transferPatientToQueue(bedId) {
+    const bed = beds.find(b => b.id === bedId);
+    if (!bed || !bed.patientName) return;
+
+    setBeds(prev => prev.map(b =>
+      b.id === bedId
+        ? { ...b, status: 'untidy', patientName: null, timestamp: new Date().toISOString() }
+        : b
+    ));
+    addToQueue({ patientName: bed.patientName, requiredWard: bed.ward, tab: 'transfer', priority: 'High' });
+  }
+
   // ── Add patient to queue ──────────────────────────────────────
   function addToQueue(patientData) {
     const p = {
       id:   `q${Date.now()}`,
       tab:  'admin',
+      timestamp: new Date().toISOString(),
+      priority: patientData.priority || 'Medium',
       ...patientData,
     };
     setQueue(prev => [...prev, p]);
+  }
+
+  function updateQueuePatient(queueId, updatedData) {
+    setQueue(prev => prev.map(q => q.id === queueId ? { ...q, ...updatedData } : q));
   }
 
   // ── Remove from queue ─────────────────────────────────────────
@@ -98,8 +140,8 @@ export function BedProvider({ children }) {
     <BedContext.Provider value={{
       beds, queue, stats,
       addBed, updateBedStatus, deleteBed,
-      assignPatientToBed, dischargePatient,
-      addToQueue, removeFromQueue,
+      assignPatientToBed, dischargePatient, dischargePatientToQueue, transferPatientToQueue,
+      addToQueue, updateQueuePatient, removeFromQueue,
     }}>
       {children}
     </BedContext.Provider>

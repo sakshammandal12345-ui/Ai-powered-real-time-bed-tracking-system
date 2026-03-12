@@ -5,11 +5,13 @@ import DepartmentPieChart from '../components/stats/DepartmentPieChart';
 import ActivityTable from '../components/stats/ActivityTable';
 import { INITIAL_BEDS } from '../data/mockData';
 import { recentActivity } from '../data/mockStatsData';
+import { useBeds } from '../context/BedContext';
 
 export default function StatsDashboard() {
+  const { beds } = useBeds();
   const [statsData, setStatsData] = useState({
     summaryStats: {
-      totalBeds: 247,
+      totalBeds: beds?.length || 247,
       occupiedBeds: '--',
       availableBeds: '--',
       emergencyBeds: 12
@@ -105,6 +107,13 @@ export default function StatsDashboard() {
     { name: 'Maternity',    value: wardCounts['Maternity']  || 1 },
   ];
 
+  const liveSummaryStats = {
+    ...statsData.summaryStats,
+    totalBeds: beds.length,
+    occupiedBeds: beds.filter(b => b.status === 'occupied').length,
+    availableBeds: beds.filter(b => b.status === 'available').length
+  };
+
   return (
     <div className="w-full flex flex-col space-y-6">
 
@@ -126,8 +135,8 @@ export default function StatsDashboard() {
         )}
       </div>
 
-      {/* Top 4 stat cards — real FastAPI /predict data */}
-      <StatsCards data={statsData.summaryStats} />
+      {/* Top 4 stat cards — real FastAPI /predict data + Live Updates */}
+      <StatsCards data={liveSummaryStats} />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full">
         {/* Trend chart — real FastAPI /forecast data */}

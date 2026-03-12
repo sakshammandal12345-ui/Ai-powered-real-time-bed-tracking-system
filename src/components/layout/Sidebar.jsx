@@ -1,16 +1,57 @@
-import React, { useState } from 'react';
-import { X, Users, ChevronLeft, ChevronRight, Plus } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { X, Users, ChevronLeft, ChevronRight, Plus, Edit2, Trash2, Clock as ClockIcon } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useBeds } from '../../context/BedContext';
 import hospitalImg from '../../assets/hospital.png';
+import useWaitTime from '../../hooks/useWaitTime';
+import AddQueuePatientModal from '../queue/AddQueuePatientModal';
 
 const TABS = ['admin', 'discharge', 'transfer'];
 const TAB_LABELS = { admin: 'Admin', discharge: 'Discharge', transfer: 'Transfer' };
 const PAGE_SIZE = 4;
 
+function RealTimeClock() {
+  const [time, setTime] = useState(new Date());
+  useEffect(() => {
+    const timer = setInterval(() => setTime(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
+  return (
+    <div className="flex items-center gap-1.5 text-xs text-blue-600 font-medium bg-blue-50 px-2 py-1 rounded-md">
+      <ClockIcon size={12} />
+      <span>{time.toLocaleTimeString()}</span>
+    </div>
+  );
+}
+
+function QueueItem({ patient, onEdit, onDelete }) {
+  const waitTime = useWaitTime(patient.timestamp);
+  return (
+    <div className="flex items-center justify-between bg-white border border-gray-100 rounded-xl px-3 py-2.5 shadow-sm hover:shadow-md transition-shadow group">
+      <div>
+        <p className="text-sm font-semibold text-gray-800">{patient.patientName}</p>
+        <p className="text-xs text-blue-500 font-medium">{patient.requiredWard}</p>
+      </div>
+      <div className="flex flex-col items-end">
+        <span className="text-xs text-gray-400 whitespace-nowrap mb-1">{waitTime}</span>
+        <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+          <button onClick={() => onEdit(patient)} className="text-blue-400 hover:text-blue-600 transition-colors">
+            <Edit2 size={12} />
+          </button>
+          <button onClick={() => onDelete(patient.id)} className="text-red-400 hover:text-red-600 transition-colors">
+            <Trash2 size={12} />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Sidebar({ open, onClose }) {
   const { user } = useAuth();
-  const { queue } = useBeds();
+  const [isAddQueueOpen, setAddQueueOpen] = useState(false);
+  const [patientToEdit, setPatientToEdit] = useState(null);
+  const { queue, removeFromQueue } = useBeds();
   const [activeTab, setActiveTab] = useState('admin');
   const [page, setPage] = useState(1);
 
@@ -19,6 +60,16 @@ export default function Sidebar({ open, onClose }) {
   const paged = tabQueue.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
   function handleTabChange(tab) { setActiveTab(tab); setPage(1); }
+
+  function handleEdit(patient) {
+    setPatientToEdit(patient);
+    setAddQueueOpen(true);
+  }
+
+  function handleCloseModal() {
+    setAddQueueOpen(false);
+    setPatientToEdit(null);
+  }
 
   return (
     <>
@@ -54,9 +105,12 @@ export default function Sidebar({ open, onClose }) {
         </div>
 
         {/* Queuing system label */}
-        <div className="flex items-center justify-center gap-2 py-2 border-y border-gray-100 mx-4 mb-3 shrink-0">
-          <Users size={16} className="text-blue-500" />
-          <span className="text-blue-600 font-semibold text-sm">Queuing System</span>
+        <div className="flex items-center justify-between py-2 border-y border-gray-100 mx-4 mb-3 shrink-0">
+          <div className="flex items-center gap-2">
+            <Users size={16} className="text-blue-500" />
+            <span className="text-blue-600 font-semibold text-sm">Queuing System</span>
+          </div>
+          <RealTimeClock />
         </div>
 
         {/* Tabs */}
@@ -86,7 +140,9 @@ export default function Sidebar({ open, onClose }) {
             className="flex items-center gap-1 text-xs text-gray-500 hover:text-blue-600 disabled:opacity-30 transition-colors">
             Next <ChevronRight size={14} />
           </button>
-          <button className="text-blue-500 hover:text-blue-700 ml-1"><Plus size={15} /></button>
+          <button onClick={() => setAddQueueOpen(true)} className="text-blue-500 hover:text-blue-700 ml-1">
+            <Plus size={15} />
+          </button>
         </div>
 
         {/* Queue list */}
@@ -96,14 +152,7 @@ export default function Sidebar({ open, onClose }) {
           ) : (
             <div className="space-y-2">
               {paged.map(p => (
-                <div key={p.id}
-                  className="flex items-center justify-between bg-white border border-gray-100 rounded-xl px-3 py-2.5 shadow-sm hover:shadow-md transition-shadow">
-                  <div>
-                    <p className="text-sm font-semibold text-gray-800">{p.patientName}</p>
-                    <p className="text-xs text-blue-500 font-medium">{p.requiredWard}</p>
-                  </div>
-                  <span className="text-xs text-gray-400 text-right whitespace-nowrap ml-2">{p.waitTime}</span>
-                </div>
+                <QueueItem key={p.id} patient={p} onEdit={handleEdit} onDelete={removeFromQueue} />
               ))}
             </div>
           )}
@@ -114,6 +163,13 @@ export default function Sidebar({ open, onClose }) {
           <p className="text-xs text-gray-500 text-center">{user?.name ?? 'User'} · {user?.email ?? ''}</p>
         </div>
       </aside>
+
+      <AddQueuePatientModal
+        open={isAddQueueOpen}
+        onClose={handleCloseModal}
+        defaultTab={activeTab}
+        patientToEdit={patientToEdit}
+      />
     </>
   );
 }

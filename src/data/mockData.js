@@ -24,14 +24,14 @@ export const INITIAL_BEDS = [
 
 // ── Queue (Admin tab in sidebar) ───────────────────────────────
 export const INITIAL_QUEUE = [
-  { id: 'q1', patientName: 'Manoj Tamang', waitTime: '10 minutes ago', priority: 'High',   requiredWard: 'Acute Ward', tab: 'admin'     },
-  { id: 'q2', patientName: 'Hari Rai',     waitTime: '25 minutes ago', priority: 'Medium', requiredWard: 'ICU',        tab: 'admin'     },
-  { id: 'q3', patientName: 'Ram Yadav',    waitTime: '1 hour ago',     priority: 'Low',    requiredWard: 'ICU',        tab: 'admin'     },
-  { id: 'q4', patientName: 'Riya Tamang',  waitTime: '2 hours ago',    priority: 'High',   requiredWard: 'Maternity',  tab: 'admin'     },
-  { id: 'q5', patientName: 'Sara Khan',    waitTime: '30 minutes ago', priority: 'High',   requiredWard: 'Acute Ward', tab: 'discharge' },
-  { id: 'q6', patientName: 'Tom Hardy',    waitTime: '45 minutes ago', priority: 'Medium', requiredWard: 'ICU',        tab: 'discharge' },
-  { id: 'q7', patientName: 'Lisa Ray',     waitTime: '15 minutes ago', priority: 'Low',    requiredWard: 'Maternity',  tab: 'transfer'  },
-  { id: 'q8', patientName: 'John Wick',    waitTime: '1 hour ago',     priority: 'High',   requiredWard: 'ICU',        tab: 'transfer'  },
+  { id: 'q1', patientName: 'Manoj Tamang', timestamp: new Date(Date.now() - 1000*60*10).toISOString(), priority: 'High',   requiredWard: 'Acute Ward', tab: 'admin'     },
+  { id: 'q2', patientName: 'Hari Rai',     timestamp: new Date(Date.now() - 1000*60*25).toISOString(), priority: 'Medium', requiredWard: 'ICU',        tab: 'admin'     },
+  { id: 'q3', patientName: 'Ram Yadav',    timestamp: new Date(Date.now() - 1000*60*60).toISOString(), priority: 'Low',    requiredWard: 'ICU',        tab: 'admin'     },
+  { id: 'q4', patientName: 'Riya Tamang',  timestamp: new Date(Date.now() - 1000*60*120).toISOString(), priority: 'High',   requiredWard: 'Maternity',  tab: 'admin'     },
+  { id: 'q5', patientName: 'Sara Khan',    timestamp: new Date(Date.now() - 1000*60*30).toISOString(), priority: 'High',   requiredWard: 'Acute Ward', tab: 'discharge' },
+  { id: 'q6', patientName: 'Tom Hardy',    timestamp: new Date(Date.now() - 1000*60*45).toISOString(), priority: 'Medium', requiredWard: 'ICU',        tab: 'discharge' },
+  { id: 'q7', patientName: 'Lisa Ray',     timestamp: new Date(Date.now() - 1000*60*15).toISOString(), priority: 'Low',    requiredWard: 'Maternity',  tab: 'transfer'  },
+  { id: 'q8', patientName: 'John Wick',    timestamp: new Date(Date.now() - 1000*60*60).toISOString(), priority: 'High',   requiredWard: 'ICU',        tab: 'transfer'  },
 ];
 
 export const WARDS = ['Acute Ward', 'ICU', 'Maternity', 'Isolation'];
@@ -44,4 +44,5 @@ export const BED_STATUSES = [
   { value: 'untidy',      label: 'Untidy'      },
   { value: 'faulty',      label: 'Faulty'      },
   { value: 'isolation',   label: 'Isolation'   },
+  { value: 'transfer',    label: 'Transfer'    },
 ];

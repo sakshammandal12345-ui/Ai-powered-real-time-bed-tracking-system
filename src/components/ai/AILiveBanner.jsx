@@ -1,46 +1,43 @@
 import React, { useState, useEffect } from 'react';
 import { Brain, Activity, Zap, TrendingUp, AlertTriangle, CheckCircle, Clock } from 'lucide-react';
+import { useBeds } from '../../context/BedContext';
 
 export default function AILiveBanner({ aiData }) {
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [pulse, setPulse] = useState(true);
-  const [tick, setTick] = useState(0);
+  const [insightIdx, setInsightIdx] = useState(0);
 
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(new Date());
-      setTick(t => t + 1);
     }, 1000);
-    const pulseTimer = setInterval(() => setPulse(p => !p), 1500);
-    return () => { clearInterval(timer); clearInterval(pulseTimer); };
+    return () => { clearInterval(timer); };
   }, []);
 
+  const { stats } = useBeds();
   const hour = currentTime.getHours();
-  const occupied = aiData?.peakHours?.expectedPatientLoad ?? '--';
-  const available = occupied !== '--' ? 247 - occupied : '--';
-  const alertProb = aiData?.bedDemand?.next6Hours
-    ? Math.round((aiData.bedDemand.next6Hours.icu / (aiData.bedDemand.next6Hours.icu + aiData.bedDemand.next6Hours.general)) * 100)
-    : 0;
+  const occupied = stats.occupied;
+  const total = stats.total;
+  const available = total - occupied;
   const isCritical = aiData?.emergencyAlert?.alert;
   const peakHours = aiData?.peakHours?.predictedPeakHours ?? [];
   const isCurrentlyPeak = peakHours.some(p => parseInt(p) === hour);
 
-  const occupancyPct = occupied !== '--' ? Math.round((occupied / 247) * 100) : 0;
+  const occupancyPct = total > 0 ? Math.round((occupied / total) * 100) : 0;
 
   // Scrolling AI insights
   const insights = [
     `🤖 Random Forest model active — MAE ±4.2 beds`,
     `📊 96.1% alert detection accuracy`,
-    `🏥 BPKIHS Biratnagar — 247 total beds monitored`,
+    `🏥 BPKIHS Biratnagar — ${total} total beds monitored`,
     `⚡ Predictions refresh every 5 minutes`,
     isCurrentlyPeak ? `⚠️ Current hour (${hour}:00) is a predicted peak hour` : `✅ Current hour (${hour}:00) is within normal range`,
     `🎯 Next 6h ICU demand: ${aiData?.bedDemand?.next6Hours?.icu ?? '--'} beds`,
   ];
-  const [insightIdx, setInsightIdx] = useState(0);
+  const insightsLen = insights.length;
   useEffect(() => {
-    const t = setInterval(() => setInsightIdx(i => (i + 1) % insights.length), 3500);
+    const t = setInterval(() => setInsightIdx(i => (i + 1) % insightsLen), 3500);
     return () => clearInterval(t);
-  }, [aiData]);
+  }, [insightsLen]);
 
   return (
     <div className="relative overflow-hidden rounded-2xl mb-4 shadow-lg"

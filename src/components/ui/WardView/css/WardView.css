@@ -1,0 +1,20 @@
+/* Custom styles for WardView component */
+.ward-view-container {
+    @apply bg-white rounded-xl border border-gray-200 shadow-sm;
+}
+
+.ward-view-toolbar {
+    @apply flex items-center gap-2 flex-wrap p-3 border-b border-gray-100;
+}
+
+.ward-dropdown {
+    @apply flex items-center gap-1.5 bg-white border border-blue-300 rounded-lg px-3 py-1.5 text-sm font-medium text-blue-700 cursor-pointer hover:bg-blue-50 transition-colors;
+}
+
+.ward-search-container {
+    @apply ml-auto min-w-[200px] flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-xl px-3 py-1.5 focus-within:border-blue-400 focus-within:bg-white focus-within:shadow-md transition-all;
+}
+
+.legend-bar {
+    @apply flex items-center gap-0 overflow-x-auto scrollbar-hide border-b border-gray-100 px-3 py-2 bg-gray-50/50;
+}
