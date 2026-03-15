@@ -154,7 +154,7 @@ Hospitals worldwide face critical challenges with bed management:
 - **AI Analytics** — Includes demand forecasting, peak hour predictions, and surge alerts
 - **Stats** — Statistical overview 
 - **Forecast** — AI-based occupancy predictions
-- **Booking History** — Past admissions log *(coming soon)*
+- **Booking History** — Past admissions log
 - **Patients** — Full CRUD patient directory with search and filtering
 - **Billing** — Invoice management & billing history
 - **Reports** — Analytics reports *(coming soon)*
