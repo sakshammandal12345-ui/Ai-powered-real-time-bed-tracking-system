@@ -145,7 +145,7 @@ export function ForecastSection({ aiData, aiLoading }) {
           {[
             { icon: <Brain size={13} />, text: 'Random Forest Regressor — 100 estimators', color: 'text-blue-600' },
             { icon: <Activity size={13} />, text: 'Logistic Regression Alert — 96.1% accuracy', color: 'text-emerald-600' },
-            { icon: <Zap size={13} />, text: 'Trained on 3,240 synthetic BPKIHS rows', color: 'text-amber-600' },
+            { icon: <Zap size={13} />, text: 'Trained on 3,240 synthetic hospital rows', color: 'text-amber-600' },
           ].map((item, i) => (
             <div key={i} className={`flex items-center gap-1.5 text-[11px] font-medium ${item.color}`}>
               {item.icon} {item.text}

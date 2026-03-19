@@ -125,7 +125,7 @@ export default function StatsDashboard() {
             <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-400" />
           </span>
           <span className="text-xs font-bold text-green-600 uppercase tracking-wider">
-            Live AI Data — BPKIHS Biratnagar · Random Forest Model
+            Live AI Data — Random Forest Model
           </span>
         </div>
         {statsData.loading && (

@@ -28,7 +28,6 @@ export default function AILiveBanner({ aiData }) {
   const insights = [
     `🤖 Random Forest model active — MAE ±4.2 beds`,
     `📊 96.1% alert detection accuracy`,
-    `🏥 BPKIHS Biratnagar — ${total} total beds monitored`,
     `⚡ Predictions refresh every 5 minutes`,
     isCurrentlyPeak ? `⚠️ Current hour (${hour}:00) is a predicted peak hour` : `✅ Current hour (${hour}:00) is within normal range`,
     `🎯 Next 6h ICU demand: ${aiData?.bedDemand?.next6Hours?.icu ?? '--'} beds`,
