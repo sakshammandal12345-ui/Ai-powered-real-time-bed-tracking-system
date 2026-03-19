@@ -1,5 +1,5 @@
 import React from 'react';
-import { BarChart, Bar, XAxis, Tooltip, ResponsiveContainer, CartesianGrid, Legend } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Legend } from 'recharts';
 import { Bot, BedDouble, TrendingUp, Cpu } from 'lucide-react';
 
 export default function BedDemandForecast({ data }) {
@@ -47,11 +47,12 @@ export default function BedDemandForecast({ data }) {
         ))}
       </div>
 
-      <div className="flex-1 min-h-[140px] relative z-10 w-full mt-1">
+      <div className="h-[180px] relative z-10 w-full mt-1">
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={data.chartData} margin={{ top: 10, right: 0, left: -20, bottom: 0 }} barSize={12} barGap={4}>
+          <BarChart data={data.chartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }} barSize={12} barGap={4}>
             <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
             <XAxis dataKey="timeframe" tick={{fontSize: 10, fill: '#94a3b8'}} axisLine={false} tickLine={false} />
+            <YAxis hide />
             <Tooltip 
               cursor={{fill: '#f8fafc'}}
               contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}

@@ -110,7 +110,6 @@ export default function Dashboard() {
 
         setAiData({
           peakHours: {
-            hospital: "BPKIHS Biratnagar",
             predictedPeakHours: peakHours.slice(0, 3),
             expectedPatientLoad: predict.occupied,
             confidence: `${100 - Math.round(predict.alert_probability)}%`,

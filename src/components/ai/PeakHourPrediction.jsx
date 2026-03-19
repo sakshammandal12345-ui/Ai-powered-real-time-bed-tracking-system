@@ -46,7 +46,7 @@ export default function PeakHourPrediction({ data }) {
         </div>
       </div>
 
-      <div className="flex-1 min-h-[120px] relative z-10 w-full mt-2">
+      <div className="h-[180px] relative z-10 w-full mt-2">
         <span className="text-[10px] text-gray-400 font-medium mb-2 block uppercase tracking-wider">24h Patient Activity Forecast</span>
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={data.activityData} margin={{ top: 5, right: 0, left: -20, bottom: 0 }}>
