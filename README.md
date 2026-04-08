@@ -62,30 +62,30 @@ Hospitals worldwide face critical challenges with bed management:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                     USER AUTHENTICATION                      │
-│   Login / Register → Role Assignment (Admin/Nurse/Billing)   │
+│                     USER AUTHENTICATION                     │
+│   Login / Register → Role Assignment (Admin/Nurse)          |
 └──────────────────────────┬──────────────────────────────────┘
                            │
                            ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                      MAIN DASHBOARD                          │
-│                                                              │
+│                      MAIN DASHBOARD                         │
+│                                                             │
 │  ┌──────────────┐    ┌──────────────────────────────────┐   │
-│  │   SIDEBAR     │    │          WARD VIEW                │   │
-│  │              │    │                                    │   │
-│  │ Hospital     │    │  [Ward Filter] [CRUD Actions]     │   │
-│  │ Branding     │    │                                    │   │
-│  │              │    │  Status Legend Bar                 │   │
-│  │ ─────────── │    │  (Total/Available/Occupied/...)    │   │
-│  │              │    │                                    │   │
-│  │ Queuing     │    │  ┌────────┐  ┌────────┐           │   │
-│  │ System      │    │  │ Bed 01 │  │ Bed 02 │           │   │
-│  │              │    │  │ Avail. │  │ Disch. │           │   │
-│  │ Admin|Disch │    │  └────────┘  └────────┘           │   │
-│  │ |Transfer   │    │  ┌────────┐  ┌────────┐           │   │
-│  │              │    │  │ Bed 03 │  │ Bed 04 │           │   │
-│  │ Patient     │    │  │ Rsrvd. │  │ Avail. │           │   │
-│  │ Queue List  │    │  └────────┘  └────────┘           │   │
+│  │   SIDEBAR    │    │          WARD VIEW               │   │
+│  │              │    │                                  │   │
+│  │ Hospital     │    │  [Ward Filter] [CRUD Actions]    │   │
+│  │ Branding     │    │                                  │   │
+│  │              │    │  Status Legend Bar               │   │
+│  │ ───────────  |    │  (Total/Available/Occupied/...)  │   │
+│  │              │    │                                  │   │
+│  │ Queuing      │    │  ┌────────┐  ┌────────┐          │   │
+│  │ System       │    │  │ Bed 01 │  │ Bed 02 │          │   │
+│  │              │    │  │ Avail. │  │ Disch. │          │   │
+│  │ Admin|Disch  │    │  └────────┘  └────────┘          │   │
+│  │ |Transfer    │    │  ┌────────┐  ┌────────┐          │   │
+│  │              │    │  │ Bed 03 │  │ Bed 04 │          │   │
+│  │ Patient      │    │  │ Rsrvd. │  │ Avail. │          │   │
+│  │ Queue List   │    │  └────────┘  └────────┘          │   │
 │  └──────────────┘    └──────────────────────────────────┘   │
 └─────────────────────────────────────────────────────────────┘
 ```
@@ -116,7 +116,7 @@ Hospitals worldwide face critical challenges with bed management:
 
 ### 🔐 Authentication & Authorization
 - Secure login and registration with form validation
-- Role-based access control (Admin, Nurse, Billing, Viewer)
+- Role-based access control (Admin, Nurse)
 - Persistent sessions via localStorage
 - Protected routes — unauthorized users are redirected to login
 
@@ -351,7 +351,7 @@ The system uses mock authentication. You can sign in with any email and password
 - [x] Smart bed recommendations
 - [x] Stats dashboard with charts
 - [x] Patient directory (Full CRUD)
-- [ ] Booking history & audit trail
+- [x] Booking history & audit trail
 - [x] Billing module
 
 
